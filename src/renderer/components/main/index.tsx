@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Button,
   Center,
@@ -164,7 +163,7 @@ const Main = () => {
         }
       };
     }
-  }, [connectionState]);
+  }, [connectionState, setTickerData, socket, subscribedTickers]);
 
   useEffect(() => {
     setSubscribedTickers(
@@ -189,6 +188,7 @@ const Main = () => {
         }
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -208,7 +208,7 @@ const Main = () => {
         );
       }
     }
-  }, [subscribedTickers]);
+  }, [connectionState, socket, subscribedTickers]);
 
   function formatNumber(num: number, roundTo: number) {
     return num
@@ -233,8 +233,10 @@ const Main = () => {
                 <Tr>
                   <Th>Name</Th>
                   <Th isNumeric>Price</Th>
-                  <Th isNumeric>Change</Th>
-                  <Th isNumeric>% Change</Th>
+                  <Th isNumeric>Change (24h)</Th>
+                  <Th isNumeric>% Change (24h)</Th>
+                  <Th isNumeric>Highest Price (24h)</Th>
+                  <Th isNumeric>Lowest Price (24h)</Th>
                   <Th isNumeric>Volume (24h)</Th>
                   <Th isNumeric>Total trades</Th>
                 </Tr>
@@ -257,7 +259,13 @@ const Main = () => {
                             {formatNumber(parseFloat(ticker.P), 2)} %
                           </Td>
                           <Td isNumeric>
-                            {formatNumber(parseInt(ticker.v + ticker.q, 10), 0)}{' '}
+                            {formatNumber(parseFloat(ticker.h), 2)} $
+                          </Td>
+                          <Td isNumeric>
+                            {formatNumber(parseFloat(ticker.l), 2)} $
+                          </Td>
+                          <Td isNumeric>
+                            {formatNumber(parseInt(ticker.v, 10), 0)}{' '}
                             {ticker.s.split('USDT')[0]}
                           </Td>
                           <Td isNumeric>{formatNumber(ticker.n, 0)}</Td>

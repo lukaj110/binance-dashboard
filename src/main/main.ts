@@ -22,13 +22,9 @@ class AppUpdater {
   }
 }
 
-const { session } = require('electron');
-
-const filter = {
-  urls: ['https://api.binance.com/*'],
-};
-
 let mainWindow: BrowserWindow | null = null;
+
+require('electron-debug')({ showDevTools: false });
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -56,10 +52,6 @@ if (process.env.NODE_ENV === 'production') {
 
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
-
-if (isDebug) {
-  require('electron-debug')();
-}
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -89,8 +81,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1250,
-    minWidth: 1250,
+    width: 1500,
+    minWidth: 1500,
     maxWidth: 1500,
     height: 600,
     minHeight: 600,
