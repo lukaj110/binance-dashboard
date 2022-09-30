@@ -1,4 +1,4 @@
-# Binance Overview
+# Binance Dashboard
 
 This is an app used for visualization and statistics on binance.
 
